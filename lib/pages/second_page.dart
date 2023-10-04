@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:meu_app/widgets/botao_widget.dart';
 
 class SecondPage extends StatelessWidget {
-  const SecondPage({Key? key})
-      : super(key: key); // Correção na definição do construtor
+  final dynamic pokemonData;
+  final String apiUrl = 'https://pokeapi.co/api/v2/pokemon/';
+
+  const SecondPage({Key? key, required this.pokemonData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Segunda Página'),
+        backgroundColor: Colors.blue,
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            BotaoWidget(
-              texto: "voltar",
-              funcao: () => Navigator.pop(context),
-            ),
+            const Text('Detalhes do Pokémon:'),
+            const SizedBox(height: 20),
+            Text('Nome: ${pokemonData['name']}'),
+            Text('Tipo: ${pokemonData['types'][0]['type']['name']}'),
+            Text('Altura: ${pokemonData['height']}'),
+            Text('Peso: ${pokemonData['weight']}'),
+            Text('URL Completa: ${apiUrl}' + pokemonData['name']),
           ],
         ),
       ),
